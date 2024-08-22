@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { regsiterRequest } from "../api/auth.js";
+import { registerRequest } from "../api/auth.js";
 
 export const AuthContext = createContext();
 
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const { user, setUser } = useState(null);
 
     const signup = async (user) => {
-        const res = await regsiterRequest(values)
+        const res = await registerRequest(values)
         console.log(res.data);
         setUser(res.data);
     };

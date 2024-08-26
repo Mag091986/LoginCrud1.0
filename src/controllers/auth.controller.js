@@ -1,4 +1,6 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { TOKEN_SECRET } from "../config.js";
 import { createAccessToken } from "../libs/jwt.js";
 import User from "../models/user.model.js";
 
@@ -8,7 +10,7 @@ export const register = async (req, res) => {
     try {
 
         const userFound = await User.findOne({email})
-        if (userFound) return res.status(400).json(["The E-mail is already in use"]);
+        if (userFound) return res.status(400).json(["El correo ya está en uso"]);
 
         const passwordHash = await  bcrypt.hash(password, 10) //entra el hash y se encripta
 
@@ -42,11 +44,11 @@ export const login = async (req, res) => {
 
         const userFound = await User.findOne({email});
 
-        if (!userFound) return res.status(400).json({message: "User not found"});
+        if (!userFound) return res.status(400).json({message: "Usuario no encontrado"});
 
         const isMatch = await bcrypt.compare(password, userFound.password);
 
-        if (!isMatch) return res.status(400).json({message: "Incorrect password"});
+        if (!isMatch) return res.status(400).json({message: "Contraseña incorrecta"});
 
        
         const token = await createAccessToken({ id: userFound._id });
@@ -83,7 +85,25 @@ export const profile = async (req, res) => {
         email: userFound.email,
         createdAt: userFound.createdAt,
         updatedAt: userFound.updatedAt,
-    })
+    });
     
-    res.send('profile')
-} 
+};
+
+export const verifyToken = async (req, res) => {
+    const {token} = req.cookies
+
+    if(!token) return res.status(401).json({message: "No autorizado"});
+    
+    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+        if (err) res.status(401).json({message: "No autorizado"});
+
+        const userFound = await User.findById(user.id)
+        if (!userFound) res.status(401).json({message: "No autorizado"});
+
+        return res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email,
+        });
+    });
+}

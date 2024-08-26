@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function RegisterPage() {
@@ -20,43 +20,60 @@ function RegisterPage() {
     return (
         <div className="flex h-[calc(100vh-100px)] justify-center items-center">
             <div className=" bg-orange-500 max-w-md p-10 rounded-md">
-            {
-                registerErrors.map((error, i) => (
-                    <div className="bg-white p-2 text-black" key={i} >
-                        {error}
-                    </div>
-                ))
-            }
-            <form onSubmit={onSubmit}>
-                <input type="text"
-                    {...register('username', { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="User Name"
-                />
                 {
-                    errors.username && (<p className="text-white">Username is required</p>)
+                    registerErrors.map((error, i) => (
+                        <div className="bg-white p-2 text-black text-center my-2" key={i} >
+                            {error}
+                        </div>
+                    ))
                 }
-                <input type="email"
-                    {...register('email', { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="E-mail"
-                />
-                {
-                    errors.email && (<p className="text-white">E-mail is required</p>)
-                }
-                <input type="password"
-                    {...register('password', { required: true })}
-                    className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-                    placeholder="Password "
-                />
-                {
-                    errors.password && (<p className="text-white">Password is required</p>)
-                }
-                <button type="submit">
-                    Register
-                </button>
-            </form>
-        </div>
+
+                <h1 className="text-2xl font-bold">Registro</h1>
+                <form onSubmit={onSubmit}>
+                    <input
+                        type="text"
+                        {...register('username', { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="User Name"
+                        autoComplete="username"
+                    />
+                    {
+                        errors.username && (<p className="text-white">Se requiere un Usuario</p>)
+                    }
+
+                    <input
+                        type="email"
+                        {...register('email', { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="E-mail"
+                        autoComplete="email"
+                    />
+                    {
+                        errors.email && (<p className="text-white">Se requiere un correo</p>)
+                    }
+
+                    <input
+                        type="password"
+                        {...register('password', { required: true })}
+                        className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+                        placeholder="Password"
+                        autoComplete="current-password"
+                    />
+                    {
+                        errors.password && (<p className="text-white">Se requiere una contraseña</p>)
+                    }
+
+                    {
+                        errors.password && (<p className="text-white">Se requiere una constraseña</p>)
+                    }
+                    <button type="submit" className="text-black">
+                        Registro
+                    </button>
+                </form>
+                <p className="flex gap-x-2 justify-between">
+                    ¿Ya tienes una cuenta? {" "} <Link to="/login" className="text-blue-800">Acceder</Link>
+                </p>
+            </div>
         </div>
     )
 }

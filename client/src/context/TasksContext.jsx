@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { createTaskRequest, getTasksRequest, } from "../api/tasks";
+import { createTaskRequest, deleteTaskRequest, getTaskRequest, getTasksRequest, updateTaskRequest } from "../api/tasks";
 
 const TasksContext = createContext();
 
@@ -10,7 +10,7 @@ export const useTasks = () => {
         throw new Error("useTasks must be used within a TaskProvider");
     }
 
-    return context; // Devuelve el contexto para que los componentes puedan acceder a él
+    return context;
 }
 
 export function TaskProvider({ children }) {
@@ -24,15 +24,42 @@ export function TaskProvider({ children }) {
             console.error(error)
 
         }
-    }
+    };
 
     const createTask = async (task) => {
         const res = await createTaskRequest(task)
         console.log(res)
+    };
+
+    const deleteTask = async (id) => {
+        try {
+            const res = await deleteTaskRequest(id)
+            if (res.status === 204) setTasks(tasks.filter(task => task._id !== id));
+        } catch (error) {
+            console.log(error)
+        }
+
+    };
+
+    const getTask = async (id) => {
+        try {
+            const res = await getTaskRequest(id)
+        return res.data
+        } catch (error) {
+            console.log(error);      
+        }
+    }
+
+    const updateTask = async (id, task) => {
+        try {
+            await updateTaskRequest(id, task)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
-        <TasksContext.Provider value={{ tasks, setTasks, createTask, getTasks, }}>
+        <TasksContext.Provider value={{ tasks, setTasks, createTask, getTasks, deleteTask, getTask, updateTask }}>
             {children}
         </TasksContext.Provider>
     );

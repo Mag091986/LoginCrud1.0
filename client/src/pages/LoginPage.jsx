@@ -55,7 +55,7 @@ function LoginPage() {
           {
             errors.password && (<p className="text-white">Se requiere una contraseña</p>)
           }
-          <button type="submit" className="text-black">
+          <button type="submit" className="text-white bg-blue-600 rounded-sm px-4 py-2">
             Acceder
           </button>
         </form>

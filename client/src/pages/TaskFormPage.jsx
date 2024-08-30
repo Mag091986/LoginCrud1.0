@@ -45,7 +45,7 @@ function TaskFormPage() {
   return (<div className="flex h-[calc(100vh-100px)] justify-center items-center">
     <div className="bg-orange-600 max-w-md w-full p-10 rounded-sm">
       <form onSubmit={onSubmit}>
-        <label htmlFor="title">Título</label>
+        <label htmlFor="title">A nombre de:</label>
         <input
           type="text" placeholder="Title"
           {...register('title')}
@@ -58,7 +58,7 @@ function TaskFormPage() {
 
           className="w-full text-black px-4 py-2 rounded-sm my-2"
         ></textarea>
-        <label htmlFor="date">Date</label>
+        <label htmlFor="date">Fecha</label>
         <input type="date" {...register('date')} className="w-full text-black px-3 py-2 rounded-sm my-2" />
 
         <button className="bg-indigo-800 text-white rounded-sm px-3 py-2">Save</button>

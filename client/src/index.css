@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body{
-  background-color:  #fdba74;
-  color: white;
-  padding: 20px;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-style: normal;
+  background-color:  white;
+  color: #334155;
+  padding-top: 5em;
 }
+

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import image from "../assets/img/portada-1-2.jpg";
 import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
@@ -19,7 +20,7 @@ function LoginPage() {
 
   return (
     <div className="flex h-[calc(100vh-100px)] justify-center items-center">
-      <div className=" bg-orange-500 max-w-md p-20 rounded-md">
+      <div className=" bg-white max-w-md p-20 rounded-md">
 
         {
           SigninErrors.map((error, i) => (
@@ -62,6 +63,9 @@ function LoginPage() {
         <p className="flex gap-x-2 justify-between">
           ¿Todavía no estás registrado? <Link to="/register" className="text-blue-800">Regístrate</Link>
         </p>
+      </div>
+      <div className="h-full">
+        <img src={image} alt="Vino" className="object-cover w-full h-full" />
       </div>
     </div>
   )

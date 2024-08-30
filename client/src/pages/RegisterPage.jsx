@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import image from "../assets/img/nuevouser.jpg";
 import { useAuth } from "../context/AuthContext";
 
 function RegisterPage() {
@@ -19,7 +20,7 @@ function RegisterPage() {
 
     return (
         <div className="flex h-[calc(100vh-100px)] justify-center items-center">
-            <div className=" bg-orange-500 max-w-md p-10 rounded-md">
+            <div className=" bg-white max-w-md p-10 rounded-md">
                 {
                     registerErrors.map((error, i) => (
                         <div className="bg-white p-2 text-black text-center my-2" key={i} >
@@ -69,8 +70,11 @@ function RegisterPage() {
                 <p className="flex gap-x-2 justify-between">
                     ¿Ya tienes una cuenta? {" "} <Link to="/login" className="text-blue-800">Acceder</Link>
                 </p>
+                </div>
+      <div className="h-full">
+        <img src={image} alt="Cartagena" className="object-cover w-full h-full" />
+      </div>
             </div>
-        </div>
     )
 }
 

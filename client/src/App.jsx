@@ -9,6 +9,7 @@ import TaskFormPage from "./pages/TaskFormPage";
 import TasksPage from "./pages/TasksPage";
 
 import ProtectedRoute from './ProtectedRoute';
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { TaskProvider } from "./context/TasksContext";
 
@@ -32,10 +33,12 @@ function App() {
                 <Route path='/profile' element={<ProfilePage />} />
               </Route>
             </Routes>
+            <Footer />
           </main>
         </BrowserRouter>
       </TaskProvider>
     </AuthProvider>
+    
   )
 }
 
